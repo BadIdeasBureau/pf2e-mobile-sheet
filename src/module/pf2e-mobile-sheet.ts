@@ -7,8 +7,8 @@ import "./combatTracker.ts";
 import "styles/pf2e-mobile-sheet.scss";
 import "./resizeObservers.ts";
 import { MobileUI, ViewState } from "./apps/MobileUI.ts";
-import { EventSystem } from "@pixi/events";
-import { PixiTouch } from "pixi.js";
+// import { EventSystem } from "@pixi/events";
+// import { PixiTouch } from "pixi.js";
 import { ResponsiveObserver } from "./resizeObservers.js";
 import { TouchInput } from "./apps/touchInput.js";
 
@@ -78,6 +78,10 @@ Hooks.once("init", async () => {
 
 	Handlebars.registerHelper("capitalize", (str: unknown): string => {
 		return String(str).capitalize();
+	});
+
+	Handlebars.registerHelper("ifThen", (criteria: unknown, ifTrue: string, ifFalse: string): string => {
+		return criteria ? ifTrue : ifFalse;
 	});
 
 	// Register custom sheets (if any)
@@ -252,23 +256,23 @@ Hooks.once("ready", async () => {
 		libWrapper.MIXED,
 	);
 	// @ts-ignore
-	const PixiNormalizePointer = `PIXI.extensions._queue["renderer-canvas-system"].["${PIXI.extensions._queue["renderer-canvas-system"].findIndex((b) => b.name === "events")}"].ref.prototype.normalizeToPointerData`;
+	// const PixiNormalizePointer = `PIXI.extensions._queue["renderer-canvas-system"].["${PIXI.extensions._queue["renderer-canvas-system"].findIndex((b) => b.name === "events")}"].ref.prototype.normalizeToPointerData`;
 
-	libWrapper.register<EventSystem, (event: TouchEvent | MouseEvent | PointerEvent) => PointerEvent[]>(
-		MODULE_ID,
-		PixiNormalizePointer,
-		function (wrapped, event) {
-			if (typeof TouchEvent !== "undefined" && event instanceof TouchEvent) {
-				const normalizedEvents: (PixiTouch & PointerEvent)[] = wrapped(event) as (PixiTouch & PointerEvent)[];
-				const normalizedEvent = normalizedEvents[0];
-				normalizedEvent.touches = event.touches;
-				normalizedEvent.targetTouches = event.targetTouches;
-				normalizedEvent.changedTouches = event.changedTouches;
-				return [normalizedEvent];
-			}
-			return wrapped(event);
-		},
-	);
+	// libWrapper.register<EventSystem, (event: TouchEvent | MouseEvent | PointerEvent) => PointerEvent[]>(
+	//	MODULE_ID,
+	//	PixiNormalizePointer,
+	//	function (wrapped, event) {
+	//		if (typeof TouchEvent !== "undefined" && event instanceof TouchEvent) {
+	//			const normalizedEvents: (PixiTouch & PointerEvent)[] = wrapped(event) as (PixiTouch & PointerEvent)[];
+	//			const normalizedEvent = normalizedEvents[0];
+	//			normalizedEvent.touches = event.touches;
+	//			normalizedEvent.targetTouches = event.targetTouches;
+	//			normalizedEvent.changedTouches = event.changedTouches;
+	//			return [normalizedEvent];
+	//		}
+	//		return wrapped(event);
+	//	},
+	// );
 	if (!game.modules.get("zoom-pan-options")?.active) {
 		libWrapper.register<Canvas, typeof Canvas.prototype._onDragCanvasPan>(
 			MODULE_ID,

@@ -81,7 +81,7 @@
 	"scripts": {
 		"build": "yarn clean  && vite build",
 		"build:dev": "vite build --watch --mode development",
-		"clean": "rm -rf dist/*",
+		"clean": "del dist /q",
 		"watch": "vite build --watch --mode development",
 		"hot": "vite serve",
 		"lint": "yarn lint:ts && yarn lint:json",

@@ -28,6 +28,17 @@
 	}
 }
 
+@include mixins.global-mobile {
+	#hudzone{
+		top: 20px !important;
+		bottom: auto !important;
+	}
+
+	div.accdiff-target-row{
+		grid-template-columns: auto auto !important;
+	}
+}
+
 @include mixins.hide-hud {
 	#ui-center, #ui-left, #ui-middle, #fps {
 		display: none !important;
