@@ -92,7 +92,7 @@ export function registerSettings() {
 		config: true,
 		scope: "client",
 		type: Boolean,
-		default: false,
+		default: true,
 		requiresReload: false,
 		onChange: (value: boolean) => {
 			toggleRender(!value);

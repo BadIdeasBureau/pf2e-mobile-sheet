@@ -207,9 +207,7 @@ export class MobileUI extends Application {
 
 	override getData() {
 		let data = [
-			{ name: "map", icon: "fa-map" },
 			{ name: "app", icon: "fa-home" },
-			{ name: "macros", icon: "fa-grip-horizontal", drawer: true },
 			{ name: "menu", icon: "fa-ellipsis-h", drawer: true },
 			{
 				name: "windows",
